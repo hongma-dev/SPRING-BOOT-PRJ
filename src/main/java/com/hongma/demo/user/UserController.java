@@ -31,12 +31,20 @@ public class UserController {
 	}
 	
 	@GetMapping(path="/getUser/{id}")
-	public User getUser(@PathVariable int id) {
+	public User getUser (@PathVariable int id) {
 		User user = service.getUser(id);
 		
 		if(user == null) {
 			throw new UserNotFoundException(String.format("ID[%s] not found",id));
 		}
+		
+		
+		//HATEOAS
+//		EntityModel<User> model = new EntityModel<>(user);
+//		WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(
+//					WebMvcLinkBuilder.methodOn(this.getClass()).getUsers());
+//		model.add(linkTo.withRel("all-users"));
+		
 		
 		return user;
 	}
